@@ -1,0 +1,213 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        h4 {
+            text-align: center;
+        }
+
+        .left {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="result.html">
+        <div class="container">
+            <div class="row header">
+                <div class="col-12">
+                    <h4>회원 가입 정보</h4>
+                </div>
+            </div>
+            <div class="row body">
+                <div class="col-4 left">아이디</div>
+                <div class="col-8 right">
+                    <input type="text" placeholder="ID입력 하세요." name"" id="input-id">
+                    <button type="button" id="duplCheck">중복</button>
+                </div>
+            </div>
+            <div class="row body">
+                <div class="col-4 left">패스워드</div>
+                <div class="col-8 right"><input type="password" id="input-pw"></div>
+            </div>
+            <div class="row body">
+                <div class="col-4 col-xs-4 left">패스워드 확인</div>
+                <div class="col-3 col-xs-4 right"><input type="password" id="input-repw"></div>
+                <div class="col-5 col-xs-4" id="repw"></div>
+            </div>
+            <div class="row body">
+                <div class="col-4 left">이름</div>
+                <div class="col-8 right"><input type="text" id="input-name"></div>
+            </div>
+            <div class="row body">
+                <div class="col-4 left">전화번호</div>
+                <div class="col-8 right"><input type="text" id="input-phone"></div>
+            </div>
+            <div class="row body">
+                <div class="col-4 left">이메일</div>
+                <div class="col-8 right"><input type="text" id="input-email"></div>
+            </div>
+            <div class="row body">
+                <div class="col-4 left">우편번호</div>
+                <div class="col-8 right"><input type="text" id="sample6_postcode" placeholder="우편번호"> <input
+                        type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></div>
+            </div>
+            <div class="row body">
+                <div class="col-4 left">주소1</div>
+                <div class="col-8 right"><input type="text" id="sample6_address" placeholder="주소" size="40px"></div>
+            </div>
+            <div class="row body">
+                <div class="col-4 left">주소2</div>
+                <div class="col-8 right"><input type="text" id="sample6_detailAddress" placeholder="상세주소" size="40px">
+                </div>
+            </div>
+            <div class="row footer">
+                <div class="col-12" align="center">
+                    <button id="join">회원가입</button>
+                    <button type="reset" id="reset">다시입력</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script>
+
+        const id = /^[A-Z][A-Za-z0-9]{4,12}$/;
+        const name = /^[가-힣]+$/;
+        const phone = /^01\d(-?\d{4}){2}$/;
+        const email = /^[A-Za-z0-9]+@[a-z]+\.[a-z]+$/;
+        const pw = /^[A-Za-z0-9]{4,12}/;
+
+        $("#input-repw").on("keyup", function () {
+            let inputPw = $("#input-pw").val();
+            let inputRePw = $("#input-repw").val();
+
+                let repw = $("#repw");
+
+                if (inputPw === inputRePw) {
+                    repw.html("비밀번호가 같습니다.");
+                } else {
+                    repw.html("비밀번호가 틀립니다.");
+                }
+
+                if (inputRePw == "") {
+                    repw.html("");
+                }
+            
+        });
+
+        $("#reset").on("click", function () {
+            $("#repw").html("");
+        });
+
+
+        $("#join").on("click", function () {
+
+            let inputId = $("#input-id").val();
+            let inputName = $("#input-name").val();
+            let inputPhone = $("#input-phone").val();
+            let inputEmail = $("#input-email").val();
+            let inputPw = $("#input-pw").val();
+            let inputRePw = $("#input-repw").val();
+
+            if (!id.exec(inputId)) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "아이디를 다시 입력해주세요."
+                });
+                return false;
+            }
+
+            if (!pw.exec(inputRePw)) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "비밀번호 대문자,소문자,특수문자()입력을해주세요."
+                });
+                return false;
+            }
+            
+            if (inputPw == inputRePw) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "비밀번호가 틀립니다."
+                });
+                return false;
+            }
+
+            if (!name.exec(inputName)) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "이름을 입력해주세요."
+                });
+                return false;
+            }
+            
+            if (!phone.exec(inputPhone)) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "핸드폰 번호를 제대로 입력해주세요."
+                });
+                return false;
+            }
+            if (!email.exec(inputEmail)) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "이메일 형식에 맞게 작성해주세요."
+                });
+                return false;
+            }
+
+        });
+
+
+        function sample6_execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    var addr = "";
+                    var extraAddr = "";
+
+                    if (data.userSelectedType === "R") {
+                        addr = data.roadAddress;
+                    } else {
+                        addr = data.jibunAddress;
+                    }
+
+                    document.getElementById("sample6_postcode").value = data.zonecode;
+                    document.getElementById("sample6_address").value = addr;
+                    document.getElementById("sample6_detailAddress").focus();
+                }
+            }).open();
+        }
+        
+        $('#duplCheck').on('click',function(){
+        	window.open("/idCheck?id="+$('#input-id').val(),"","width=300px,height=300px");
+        });
+
+    </script>
+</body>
+
+</html>
