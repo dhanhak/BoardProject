@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import boardDAO.BoardDAO;
 import boardDTO.BoardDTO;
+import comm.DatatypeConverter;
 
 @WebServlet("/BoardInsert")
 public class BoardInsert extends HttpServlet {
@@ -26,7 +27,7 @@ public class BoardInsert extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String inputId = request.getParameter("inputID");
-		String inputPw = request.getParameter("inputPW");
+		String inputPw = DatatypeConverter.getSHA256(request.getParameter("inputPW"));
 		String inputName = request.getParameter("inputNAME");
 		String inputPhone = request.getParameter("inputPHONE");
 		String inputEmail = request.getParameter("inputEMAIL");

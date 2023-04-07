@@ -62,10 +62,6 @@
                 <div class="col-8 right"><input type="text" name="inputPHONE" id="input-phone"></div>
             </div>
             <div class="row body">
-                <div class="col-4 left">생년월일</div>
-                <div class="col-8 right"><input type="date" name="inputBIRTHDAY" id="input-birthday"></div>
-            </div>
-            <div class="row body">
                 <div class="col-4 left">이메일</div>
                 <div class="col-8 right"><input type="text" name="inputEMAIL" id="input-email"></div>
             </div>
@@ -98,7 +94,7 @@
         const name = /^[가-힣]+$/;
         const phone = /^01\d(-?\d{4}){2}$/;
         const email = /^[A-Za-z0-9]+@[a-z]+\.[a-z]+$/;
-        const pw = /^[A-Za-z0-9]{4,12}/;
+        const pw = /.{4,12}/;
 
         $("#input-repw").on("keyup", function () {
             let inputPw = $("#input-pw").val();
