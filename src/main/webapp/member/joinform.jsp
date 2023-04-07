@@ -201,7 +201,7 @@
                     document.getElementById("sample6_detailAddress").focus();
                 }
             }).open();
-        }
+        }.
         
         $('#duplCheck').on('click',function(){
         	window.open("/idCheck?id="+$('#input-id').val(),"","width=300px,height=300px");
