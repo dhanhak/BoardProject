@@ -21,7 +21,7 @@
 			</c:when>
 			<c:otherwise><td>사용 가능 아이디입니다.</td>
 			<tr>
-			<td><button id='call'>사용</button></td>
+			<td><button id='call'>사용</button></td>    
 			</tr>
 			</c:otherwise>
 		</c:choose>

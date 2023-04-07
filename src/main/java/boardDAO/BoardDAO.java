@@ -30,7 +30,7 @@ public class BoardDAO {
 	}
 
 	public int insert(BoardDTO dto) throws Exception {
-		String sql = "INSERT INTO MEMBERS VALUSE(?,?,?,?,?,?,?,?,SYSDATE)";
+		String sql = "INSERT INTO MEMBERS VALUES(?,?,?,?,?,?,?,?,SYSDATE)";
 		try(Connection con = this.getConntection();
 				PreparedStatement pstat = con.prepareStatement(sql);){
 			pstat.setString(1, dto.getId());
@@ -41,9 +41,9 @@ public class BoardDAO {
 			pstat.setString(6, dto.getZipcode());
 			pstat.setString(7, dto.getAddress1());
 			pstat.setString(8, dto.getAddress2());
-			pstat.setTimestamp(9, dto.getJoin_date());
+			int result = pstat.executeUpdate();
 			con.commit();
-			return pstat.executeUpdate();
+			return result;
 		}
 	}
 

@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <form action="result.html">
+    <form action="/BoardInsert" method="post">
         <div class="container">
             <div class="row header">
                 <div class="col-12">
@@ -40,43 +40,47 @@
             <div class="row body">
                 <div class="col-4 left">아이디</div>
                 <div class="col-8 right">
-                    <input type="text" placeholder="ID입력 하세요." name"" id="input-id">
+                    <input type="text" placeholder="ID입력 하세요." name="inputID" id="input-id">
                     <button type="button" id="duplCheck">중복</button>
                 </div>
             </div>
             <div class="row body">
                 <div class="col-4 left">패스워드</div>
-                <div class="col-8 right"><input type="password" id="input-pw"></div>
+                <div class="col-8 right"><input type="password" name="inputPW" id="input-pw"></div>
             </div>
             <div class="row body">
                 <div class="col-4 col-xs-4 left">패스워드 확인</div>
-                <div class="col-3 col-xs-4 right"><input type="password" id="input-repw"></div>
+                <div class="col-3 col-xs-4 right"><input type="password" name="" id="input-repw"></div>
                 <div class="col-5 col-xs-4" id="repw"></div>
             </div>
             <div class="row body">
                 <div class="col-4 left">이름</div>
-                <div class="col-8 right"><input type="text" id="input-name"></div>
+                <div class="col-8 right"><input type="text" name="inputNAME" id="input-name"></div>
             </div>
             <div class="row body">
                 <div class="col-4 left">전화번호</div>
-                <div class="col-8 right"><input type="text" id="input-phone"></div>
+                <div class="col-8 right"><input type="text" name="inputPHONE" id="input-phone"></div>
+            </div>
+            <div class="row body">
+                <div class="col-4 left">생년월일</div>
+                <div class="col-8 right"><input type="date" name="inputBIRTHDAY" id="input-birthday"></div>
             </div>
             <div class="row body">
                 <div class="col-4 left">이메일</div>
-                <div class="col-8 right"><input type="text" id="input-email"></div>
+                <div class="col-8 right"><input type="text" name="inputEMAIL" id="input-email"></div>
             </div>
             <div class="row body">
                 <div class="col-4 left">우편번호</div>
-                <div class="col-8 right"><input type="text" id="sample6_postcode" placeholder="우편번호"> <input
+                <div class="col-8 right"><input type="text" name="inputPOST" id="sample6_postcode" placeholder="우편번호"> <input
                         type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"></div>
             </div>
             <div class="row body">
                 <div class="col-4 left">주소1</div>
-                <div class="col-8 right"><input type="text" id="sample6_address" placeholder="주소" size="40px"></div>
+                <div class="col-8 right"><input type="text" name="inputADDRESS1" id="sample6_address" placeholder="주소" size="40px"></div>
             </div>
             <div class="row body">
                 <div class="col-4 left">주소2</div>
-                <div class="col-8 right"><input type="text" id="sample6_detailAddress" placeholder="상세주소" size="40px">
+                <div class="col-8 right"><input type="text" name="inputADDRESS2" id="sample6_detailAddress" placeholder="상세주소" size="40px">
                 </div>
             </div>
             <div class="row footer">
@@ -111,7 +115,23 @@
                 if (inputRePw == "") {
                     repw.html("");
                 }
+        });
+        
+        $('#input-pw').on('keyup',function(){
+        	let inputPw = $("#input-pw").val();
+            let inputRePw = $("#input-repw").val();
             
+            let repw = $("#repw");
+            
+            if (inputPw === inputRePw) {
+                repw.html("비밀번호가 같습니다.");
+            } else {
+                repw.html("비밀번호가 틀립니다.");
+            }
+            
+            if (inputPw == "") {
+                repw.html("");
+            }
         });
 
         $("#reset").on("click", function () {
@@ -146,7 +166,7 @@
                 return false;
             }
             
-            if (inputPw == inputRePw) {
+            if (inputPw != inputRePw) {
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
