@@ -1,10 +1,10 @@
 package boardDAO;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -75,10 +75,39 @@ public class BoardDAO {
 				PreparedStatement pstat = con.prepareStatement(sql);
 				){
 			pstat.setString(1, id);
-			ResultSet rs = pstat.executeQuery();
-			return rs.next();
+			try(ResultSet rs = pstat.executeQuery()){
+				return rs.next();
+			}
 		}
 	}
+
+	public boolean isMember(String id, String pw) throws Exception {
+		String sql = "SELECT * FROM MEMBERS WHERE ID = ? and PW = ?";
+		try(Connection con = this.getConntection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, id);
+			pstat.setString(2, pw);
+			try(ResultSet rs = pstat.executeQuery()){
+				return rs.next();
+			}
+		}
+	}
+	
+	public static String getSHA512(String input){
+
+		String toReturn = null;
+		try {
+		    MessageDigest digest = MessageDigest.getInstance("SHA-512");
+		    digest.reset();
+		    digest.update(input.getBytes("utf8"));
+		    toReturn = String.format("%0128x", new BigInteger(1, digest.digest()));
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		
+		return toReturn;
+	    }
 
 
 }

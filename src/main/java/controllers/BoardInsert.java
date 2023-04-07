@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import boardDAO.BoardDAO;
 import boardDTO.BoardDTO;
-import comm.DatatypeConverter;
 
 @WebServlet("/BoardInsert")
 public class BoardInsert extends HttpServlet {
@@ -27,7 +26,7 @@ public class BoardInsert extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String inputId = request.getParameter("inputID");
-		String inputPw = DatatypeConverter.getSHA256(request.getParameter("inputPW"));
+		String inputPw = dao.getSHA512(request.getParameter("inputPW"));
 		String inputName = request.getParameter("inputNAME");
 		String inputPhone = request.getParameter("inputPHONE");
 		String inputEmail = request.getParameter("inputEMAIL");
@@ -38,7 +37,7 @@ public class BoardInsert extends HttpServlet {
 		try {
 			int result = dao.insert(new BoardDTO(inputId,inputPw,inputName,inputPhone,
 					inputEmail,inputPost,inputAddress1,inputAddress2,null));
-			response.sendRedirect("/index.jsp");
+			response.sendRedirect("/index.jsp?state=a_j");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
