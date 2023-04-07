@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -12,22 +13,22 @@ import javax.sql.DataSource;
 import boardDTO.BoardDTO;
 
 public class BoardDAO {
-private static BoardDAO instance = null;
-	
+	private static BoardDAO instance = null;
+
 	public synchronized static BoardDAO getInstance() {		//synchronized 쓰레드로부터 안전하다.
 		if(instance == null) {
 			instance = new BoardDAO();
 		}
 		return instance;
 	}
-	
+
 	private Connection getConntection() throws Exception {
 		Context iCtx = new InitialContext();	
 		DataSource ds = (DataSource)iCtx.lookup("java:/comp/env/jdbc/ora");
-		
+
 		return ds.getConnection();
 	}
-	
+
 	public int insert(BoardDTO dto) throws Exception {
 		String sql = "INSERT INTO MEMBERS VALUSE(?,?,?,?,?,?,?,?,SYSDATE)";
 		try(Connection con = this.getConntection();
@@ -45,7 +46,7 @@ private static BoardDAO instance = null;
 			return pstat.executeUpdate();
 		}
 	}
-	
+
 	public int delete(String id) throws Exception {
 		String sql = "DELETE FROM MEMBERS WHERE ID = ?";
 		try(Connection con = this.getConntection();
@@ -55,7 +56,7 @@ private static BoardDAO instance = null;
 			return pstat.executeUpdate();
 		}
 	}
-	
+
 	public int Update(String pw, String name, String phone) throws Exception {
 		String sql = "UPDATE MEMBERS SET PW = ?, NAME = ?, PHONE = ?";
 		try(Connection con = this.getConntection();
@@ -77,6 +78,7 @@ private static BoardDAO instance = null;
 			ResultSet rs = pstat.executeQuery();
 			return rs.next();
 		}
-		
 	}
+
+
 }

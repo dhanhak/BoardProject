@@ -20,10 +20,11 @@ public class idCheck extends HttpServlet {
 			if(result==false) {
 				System.out.println("등록된 아이디가 없습니다.");
 			}else {
-				System.out.println("중복된 아이디입니다.");
+				System.out.println("등록된 아이디가 있습니다.");
 			}
 			
-			request.getRequestDispatcher("/joinform").forward(request, response);
+			request.setAttribute("result", result);
+			request.getRequestDispatcher("/member/idCheckView.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
