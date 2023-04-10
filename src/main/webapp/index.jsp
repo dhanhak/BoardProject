@@ -15,28 +15,47 @@
 			alert('회원가입을 축하드립니다.');
 		</script>
 	</c:if>
-	
+
+	<c:choose>
+		<c:when test="${sessionScope.loginID == null}">
 			<form action="/Login" method="post">
-	<table border="1" align="center">
-		<tr>
-			<th colspan="2">Login Box</th>
-		</tr>
-		<tr>
-			<td>아이디 :</td>
-			<td><input type="text" name="userId" placeholder="Input your id"></td>
-		</tr>
-		<tr>
-			<td>패스워드 :</td>
-			<td><input type="text" name="userPw" placeholder="Input your pw"></td>
-		</tr>
-		<tr>
-				<td colspan="2" align="center"><a href="quiz04_boardList.html">
-					<input type="submit" value="로그인">
-					</form>
-			</a> <input type="button" id="toJoin" value="회원가입"><br> <input
-				type="checkbox">ID 기억하기</td>
-		</tr>
-	</table>
+				<table border="1" align="center">
+					<tr>
+						<th colspan="2">Login Box</th>
+					</tr>
+					<tr>
+						<td>아이디 :</td>
+						<td><input type="text" name="userId"
+							placeholder="Input your id"></td>
+					</tr>
+					<tr>
+						<td>패스워드 :</td>
+						<td><input type="password" name="userPw"
+							placeholder="Input your pw"></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center"><a
+							href="quiz04_boardList.html"> <input type="submit"
+								value="로그인">
+								</form>
+						</a> <input type="button" id="toJoin" value="회원가입"><br> <input
+							type="checkbox">ID 기억하기</td>
+					</tr>
+				</table>
+		</c:when>
+		<c:otherwise>
+			<table border="1" align="center">
+				<tr>
+					<th>${sessionScope.loginID }님 어서오세요.</th>
+				</tr>
+				<tr>
+					<td align="center">
+					<a href="/Logout"><button id="logout">로그아웃</button></a></td>
+				</tr>
+			</table>
+		</c:otherwise>
+	</c:choose>
+
 	<script type="text/javascript">
 		$('#toJoin').on('click', function() {
 			location.href = "/member/joinform.jsp";
