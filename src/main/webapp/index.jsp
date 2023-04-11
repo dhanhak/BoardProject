@@ -46,11 +46,12 @@
 		<c:otherwise>
 			<table border="1" align="center">
 				<tr>
-					<th>${sessionScope.loginID }님 어서오세요.</th>
+					<th colspan="3">${sessionScope.loginID }님 어서오세요.</th>
 				</tr>
 				<tr>
-					<td align="center">
-					<a href="/Logout"><button id="logout">로그아웃</button></a></td>
+					<td align="center"><a href="/Mypage"><button id="mypage">마이페이지</button></a></td>
+					<td align="center"><a href="/Logout"><button id="logout">로그아웃</button></a></td>
+					<td align="center"><a href="/member/MemberOut.jsp"><button id="memberout">회원탈퇴</button></a></td>
 				</tr>
 			</table>
 		</c:otherwise>
@@ -60,6 +61,7 @@
 		$('#toJoin').on('click', function() {
 			location.href = "/member/joinform.jsp";
 		});
+		
 	</script>
 </body>
 </html>
