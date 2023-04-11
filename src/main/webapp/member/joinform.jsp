@@ -79,6 +79,7 @@
                 <div class="col-8 right"><input type="text" name="inputADDRESS2" id="sample6_detailAddress" placeholder="상세주소" size="40px">
                 </div>
             </div>
+            </div>
             <div class="row footer">
                 <div class="col-12" align="center">
                     <button id="join">회원가입</button>

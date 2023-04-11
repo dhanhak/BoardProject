@@ -5,6 +5,10 @@ import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -90,6 +94,31 @@ public class BoardDAO {
 			pstat.setString(2, pw);
 			try(ResultSet rs = pstat.executeQuery()){
 				return rs.next();
+			}
+		}
+	}
+	
+	public BoardDTO selectId(String id) throws Exception{
+		String sql = "SELECT * FROM MEMBERS WHERE id =?";
+		try(Connection con = this.getConntection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setString(1, id);
+			try(ResultSet rs = pstat.executeQuery()){
+				if (rs.next()) {
+					String userid = rs.getString("id");
+					String pw = rs.getString("pw");
+					String name = rs.getString("name");
+					String phone = rs.getString("phone");
+					String email = rs.getString("email");
+					String zipcode = rs.getString("zipcode");
+					String address1 = rs.getString("address1");
+					String address2 = rs.getString("address2");
+					Timestamp birthday = rs.getTimestamp("join_date");
+					
+					return new BoardDTO(userid, pw, name, phone, email, zipcode, address1, address2, birthday);
+					
+				}
+				return null;
 			}
 		}
 	}
