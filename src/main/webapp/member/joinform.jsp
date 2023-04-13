@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <form action="/BoardInsert" method="post">
+    <form action="/Insert.member" method="get">
         <div class="container">
             <div class="row header">
                 <div class="col-12">
@@ -219,9 +219,10 @@
                 }
             }).open();
         }
+        
         let idCalidFlag = false;
         $('#duplCheck').on('click',function(){
-        	window.open("/idCheck?id="+$('#input-id').val(),"","width=300px,height=300px");
+        	window.open("/idCheck.member?id="+$('#input-id').val(),"","width=300px,height=300px");
         });
 
     </script>

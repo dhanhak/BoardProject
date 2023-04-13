@@ -18,28 +18,24 @@
 
 	<c:choose>
 		<c:when test="${sessionScope.loginID == null}">
-			<form action="/Login" method="post">
+			<form action="Login.member" method="get">
 				<table border="1" align="center">
 					<tr>
 						<th colspan="2">Login Box</th>
 					</tr>
 					<tr>
 						<td>아이디 :</td>
-						<td><input type="text" name="userId"
-							placeholder="Input your id"></td>
+						<td><input type="text" name="userId" placeholder="Input your id"></td>
 					</tr>
 					<tr>
 						<td>패스워드 :</td>
-						<td><input type="password" name="userPw"
-							placeholder="Input your pw"></td>
+						<td><input type="password" name="userPw" placeholder="Input your pw"></td>
 					</tr>
 					<tr>
-						<td colspan="2" align="center"><a
-							href="quiz04_boardList.html"> <input type="submit"
-								value="로그인">
+						<td colspan="2" align="center">
+							<input type="submit" value="로그인">
 								</form>
-						</a> <input type="button" id="toJoin" value="회원가입"><br> <input
-							type="checkbox">ID 기억하기</td>
+						</a> <input type="button" id="toJoin" value="회원가입"><br> <input type="checkbox">ID 기억하기</td>
 					</tr>
 				</table>
 		</c:when>
@@ -49,9 +45,9 @@
 					<th colspan="4">${sessionScope.loginID }님어서오세요.</th>
 				</tr>
 				<tr>
-					<td align="center"><a href="/toBoard"><button>게시판으로</button></a></td>
-					<td align="center"><a href="/Mypage"><button>마이페이지</button></a></td>
-					<td align="center"><a href="/Logout"><button>로그아웃</button></a></td>
+					<td align="center"><a href="/list.board"><button>게시판으로</button></a></td>
+					<td align="center"><a href="/Mypage.member"><button>마이페이지</button></a></td>
+					<td align="center"><a href="/Logout.member"><button>로그아웃</button></a></td>
 					<td align="center"><a href="/member/MemberOut.jsp"><button>회원탈퇴</button></a></td>
 				</tr>
 			</table>

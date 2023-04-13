@@ -8,7 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
-	<form action="/MemberOut" method="post">
+	<form action="/MemberOut.member" method="post">
 		<table border="1" align="center">
 			<tr>
 				<th colspan="2">내 정보</th>
