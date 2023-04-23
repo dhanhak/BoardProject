@@ -56,7 +56,7 @@
 
 	<script type="text/javascript">
 		$('#toJoin').on('click', function() {
-			location.href = "/member/joinform.jsp";
+			location.href = "/member/joinform.jsp";  
 		});
 	</script>
 </body>
